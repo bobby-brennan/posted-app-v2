@@ -3,7 +3,11 @@ var angularApp = angular.module('angularApp', ['ngRoute', 'ngAnimate']);
 angularApp.config(function($routeProvider) {
 
     $routeProvider
-    	.when('/', {
+        .when('/', {
+            templateUrl: 'feed.html',
+            controller: 'feedController'
+        })
+    	.when('/feed', {
             templateUrl: 'feed.html',
             controller: 'feedController'
     	})
@@ -11,9 +15,9 @@ angularApp.config(function($routeProvider) {
             templateUrl: 'topic.html',
             controller: 'topicController'
         })
-    	.when('/subs', {
-    	    templateUrl: 'subs.html',
-            controller: 'aboutController'
+    	.when('/topics', {
+    	    templateUrl: 'topics.html',
+            controller: 'topicsController'
     	})
     	.when('/settings', {
             templateUrl: 'settings.html',
@@ -24,20 +28,47 @@ angularApp.config(function($routeProvider) {
 
 // CONTROLLERS ============================================
 // home page controller
-animateApp.controller('feedController', function($scope) {
+angularApp.controller('feedController', function($scope) {
     $scope.pageClass = 'page-feed';
 });
 
-animateApp.controller('topicController', function($scope) {
+angularApp.controller('topicController', function($scope) {
     $scope.pageClass = 'page-topic';
 });
 
 // about page controller
-animateApp.controller('subsController', function($scope) {
+angularApp.controller('topicsController', function($scope) {
     $scope.pageClass = 'page-subs';
 });
 
 // contact page controller
-animateApp.controller('settingsController', function($scope) {
+angularApp.controller('settingsController', function($scope) {
     $scope.pageClass = 'page-settings';
+});
+
+angularApp.controller('feedButton', function($scope) {
+    $scope.icon = 'mdi-action-system-update-tv';
+    $scope.dest = '#feed';
+    $scope.name = 'Feed';
+    $scope.click = function() {
+      alert('click');
+    };
+});
+
+angularApp.controller('topicsButton', function($scope) {
+    $scope.icon = 'mdi-action-subject';
+    $scope.dest = '#topics';
+    $scope.name = 'Topics';
+    $scope.click = function() {
+      alert('click');
+    };
+});
+
+angularApp.controller('settingsButton', function($scope) {
+    $scope.icon = 'mdi-action-settings';
+    $scope.dest = '#settings';
+    $scope.name = 'Settings';
+    $scope.click = function() {
+      alert('click');
+    };
 });
