@@ -110,7 +110,7 @@ h1 {
 }
 
 .footer {
-  height:100px;
+  height:72px;
   background-color: #FFFFFF;
 }
 
@@ -129,14 +129,14 @@ h1 {
 
 .nav-button {
   padding: 4px;
-  background-color: #FF0000;
+  margin-bottom: 20px;
   width: 100%;
 }
 
 .nav-icon {
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .nav-label {
-  font-size: 12px;
+  font-size: 9px;
 }

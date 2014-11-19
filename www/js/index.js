@@ -22,6 +22,7 @@ var server = {
 
   initPostRequest: function() {
     var data = {};
+    console.log('localstorage:' + JSON.stringify(localStorage));
     if (window.device) {
       data.uuid = window.device.uuid;
     }
@@ -32,7 +33,7 @@ var server = {
         return;
       }
       data["androidId"] = localStorage.androidId;
-    } else {
+    } else if (device.platform == 'ios' || device.platform == 'iOS') {
       if (!localStorage.iosId) {
         return;
       }
@@ -71,13 +72,15 @@ var server = {
         type: "POST",
         url: 'http://www.bbrennan.info/posted/userRss',
         dataType: "xml",
-        data: server.initPostRequest(),
+        data: JSON.stringify(server.initPostRequest()),
     };
     server.getArticlesFromRss(ajaxParams, onArticles);
   },
 
   getArticlesFromRss: function(ajaxParams, onArticles) {
+      console.log('get arts:' + JSON.stringify(ajaxParams));
       ajaxParams.error = function(err) {
+        console.log('error getting articles:' + JSON.stringify(err));
         onArticles([]);
       };
       ajaxParams.success = function(xml) {
@@ -178,6 +181,7 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        console.log('event:' + id);
         if (id === 'deviceready') {
             console.log("DEVICE READY");
             

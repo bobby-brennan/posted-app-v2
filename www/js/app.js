@@ -26,14 +26,9 @@ angularApp.config(function($routeProvider) {
 });
 
 var expandButton = function(button) {
+  console.log('expanding:' + button);
   $('#navbar').scope().selected = button;
   //$('#navbar').scope().$apply();
-}
-
-var animateSwitch = function(selector, from, to, dur) {
-  /*var appElement = $(selector);
-  console.log('selected:' + appElement);
-  appElement.scope().colClass = to;*/
 }
 
 // CONTROLLERS ============================================
@@ -52,16 +47,13 @@ angularApp.controller('feedController', function($scope) {
       });
     };
     $scope.$on("$viewContentLoaded", function() {
+      console.log("CONTENT LOAD");
       if (!window.device) {
         app.onDevReady = $scope.loadData;
-        return;
       } else {
         $scope.loadData();
       }
       expandButton('feed');
-      animateSwitch('#feedButton', 'col-xs-3', 'col-xs-4', 500);
-      animateSwitch('#topicsButton', 'col-xs-4', 'col-xs-3', 500);
-      animateSwitch('#settingsButton', 'col-xs-4', 'col-xs-3', 500);
     });
 });
 
@@ -71,7 +63,6 @@ angularApp.controller('topicController', function($scope) {
     $scope.$on("$viewContentLoaded", function() {
       if (!window.device) {
         app.onDevReady = $scope.loadData;
-        return;
       } else {
         $scope.loadData();
       }
@@ -85,14 +76,10 @@ angularApp.controller('topicsController', function($scope) {
     $scope.$on("$viewContentLoaded", function() {
       if (!window.device) {
         app.onDevReady = $scope.loadData;
-        return;
       } else {
         $scope.loadData();
       }
       expandButton('topics');
-      animateSwitch('#feedButton', 'col-xs-4', 'col-xs-3', 500);
-      animateSwitch('#topicsButton', 'col-xs-3', 'col-xs-4', 500);
-      animateSwitch('#settingsButton', 'col-xs-4', 'col-xs-3', 500);
     })
 });
 
@@ -102,14 +89,10 @@ angularApp.controller('settingsController', function($scope) {
     $scope.$on("$viewContentLoaded", function() {
       if (!window.device) {
         app.onDevReady = $scope.loadData;
-        return;
       } else {
         $scope.loadData();
       }
       expandButton('settings');
-      animateSwitch('#feedButton', 'col-xs-4', 'col-xs-3', 500);
-      animateSwitch('#topicsButton', 'col-xs-4', 'col-xs-3', 500);
-      animateSwitch('#settingsButton', 'col-xs-3', 'col-xs-4', 500);
     })
 });
 
