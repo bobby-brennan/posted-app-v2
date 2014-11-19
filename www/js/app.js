@@ -3,10 +3,6 @@ var angularApp = angular.module('angularApp', ['ngRoute', 'ngAnimate']);
 angularApp.config(function($routeProvider) {
 
     $routeProvider
-        .when('/', {
-            templateUrl: 'feed.html',
-            controller: 'feedController'
-        })
     	.when('/feed', {
             templateUrl: 'feed.html',
             controller: 'feedController'
@@ -22,28 +18,103 @@ angularApp.config(function($routeProvider) {
     	.when('/settings', {
             templateUrl: 'settings.html',
             controller: 'settingsController'
-    	});
+    	})
+        .otherwise({
+            redirectTo: '/feed'
+        });
 
 });
+
+var expandButton = function(button) {
+  $('#navbar').scope().selected = button;
+  //$('#navbar').scope().$apply();
+}
+
+var animateSwitch = function(selector, from, to, dur) {
+  /*var appElement = $(selector);
+  console.log('selected:' + appElement);
+  appElement.scope().colClass = to;*/
+}
 
 // CONTROLLERS ============================================
 // home page controller
 angularApp.controller('feedController', function($scope) {
     $scope.pageClass = 'page-feed';
+    $scope.loadData = function() {
+      console.log('getting articles...');
+      server.getUserArticles(function(articles) {
+        console.log('articles:' + articles.length);
+        if (!articles || articles.length == 0) {
+          articles = [{category: "Nothing yet..."}];
+        }
+        $scope.userArticles = articles;
+        //$scope.$apply();
+      });
+    };
+    $scope.$on("$viewContentLoaded", function() {
+      if (!window.device) {
+        app.onDevReady = $scope.loadData;
+        return;
+      } else {
+        $scope.loadData();
+      }
+      expandButton('feed');
+      animateSwitch('#feedButton', 'col-xs-3', 'col-xs-4', 500);
+      animateSwitch('#topicsButton', 'col-xs-4', 'col-xs-3', 500);
+      animateSwitch('#settingsButton', 'col-xs-4', 'col-xs-3', 500);
+    });
 });
 
 angularApp.controller('topicController', function($scope) {
     $scope.pageClass = 'page-topic';
+    $scope.loadData = function(){};
+    $scope.$on("$viewContentLoaded", function() {
+      if (!window.device) {
+        app.onDevReady = $scope.loadData;
+        return;
+      } else {
+        $scope.loadData();
+      }
+    })
 });
 
 // about page controller
 angularApp.controller('topicsController', function($scope) {
     $scope.pageClass = 'page-subs';
+    $scope.loadData = function(){};
+    $scope.$on("$viewContentLoaded", function() {
+      if (!window.device) {
+        app.onDevReady = $scope.loadData;
+        return;
+      } else {
+        $scope.loadData();
+      }
+      expandButton('topics');
+      animateSwitch('#feedButton', 'col-xs-4', 'col-xs-3', 500);
+      animateSwitch('#topicsButton', 'col-xs-3', 'col-xs-4', 500);
+      animateSwitch('#settingsButton', 'col-xs-4', 'col-xs-3', 500);
+    })
 });
 
-// contact page controller
 angularApp.controller('settingsController', function($scope) {
     $scope.pageClass = 'page-settings';
+    $scope.loadData = function(){};
+    $scope.$on("$viewContentLoaded", function() {
+      if (!window.device) {
+        app.onDevReady = $scope.loadData;
+        return;
+      } else {
+        $scope.loadData();
+      }
+      expandButton('settings');
+      animateSwitch('#feedButton', 'col-xs-4', 'col-xs-3', 500);
+      animateSwitch('#topicsButton', 'col-xs-4', 'col-xs-3', 500);
+      animateSwitch('#settingsButton', 'col-xs-3', 'col-xs-4', 500);
+    })
+});
+
+angularApp.controller('navbar', function($scope) {
+    $scope.selected = "feed";
 });
 
 angularApp.controller('feedButton', function($scope) {
