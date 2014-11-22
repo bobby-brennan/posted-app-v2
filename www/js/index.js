@@ -72,7 +72,7 @@ var server = {
         type: "POST",
         url: 'http://www.bbrennan.info/posted/userRss',
         dataType: "xml",
-        data: JSON.stringify(server.initPostRequest()),
+        data: server.initPostRequest(),
     };
     server.getArticlesFromRss(ajaxParams, onArticles);
   },

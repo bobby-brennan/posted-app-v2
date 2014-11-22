@@ -1,1 +1,19 @@
-<h1>Feed</h1>
+<div ng-controller="feedController">
+  <div class="page-body p-feed list-group">
+    <div class="list-group-item" data-ng-repeat="article in articles">
+        <div class="row-content">
+          <div class="least-content">15m</div>
+          <div class="list-group-item-heading">{{ article.category }}</div>
+          <div class="list-group-item-text">{{ article.title }}</div>
+        </div>
+      <div class="list-group-separator"></div>
+        <!--div class="col-xs-11">
+          <h4>{{ article.category }}</h4>
+          <p>{{ article.title }}</p>
+        </div>
+        <div class="col-xs-1">
+          <i class="mdi-hardware-keyboard-arrow-right nav-icon"></i>
+        </div-->
+    </div>
+  </div>
+</div>

@@ -1,103 +1,64 @@
 var angularApp = angular.module('angularApp', ['ngRoute', 'ngAnimate']);
 
-angularApp.config(function($routeProvider) {
-
-    $routeProvider
-    	.when('/feed', {
-            templateUrl: 'feed.html',
-            controller: 'feedController'
-    	})
-        .when('/topic', {
-            templateUrl: 'topic.html',
-            controller: 'topicController'
-        })
-    	.when('/topics', {
-    	    templateUrl: 'topics.html',
-            controller: 'topicsController'
-    	})
-    	.when('/settings', {
-            templateUrl: 'settings.html',
-            controller: 'settingsController'
-    	})
-        .otherwise({
-            redirectTo: '/feed'
-        });
-
-});
-
 var expandButton = function(button) {
   console.log('expanding:' + button);
-  $('#navbar').scope().selected = button;
-  //$('#navbar').scope().$apply();
+  $('body').scope().selected = button;
 }
 
 // CONTROLLERS ============================================
 // home page controller
+console.log('init feed controller');
 angularApp.controller('feedController', function($scope) {
+    console.log('making feed controller');
     $scope.pageClass = 'page-feed';
+    $scope.articles = [{title: "Nothing yet..."}];
     $scope.loadData = function() {
       console.log('getting articles...');
       server.getUserArticles(function(articles) {
         console.log('articles:' + articles.length);
         if (!articles || articles.length == 0) {
-          articles = [{category: "Nothing yet..."}];
+          articles = [{title: "Nothing yet..."}];
         }
-        $scope.userArticles = articles;
-        //$scope.$apply();
+        $scope.articles = articles;
+        $scope.$apply();
       });
     };
-    $scope.$on("$viewContentLoaded", function() {
-      console.log("CONTENT LOAD");
-      if (!window.device) {
-        app.onDevReady = $scope.loadData;
-      } else {
-        $scope.loadData();
-      }
-      expandButton('feed');
-    });
+    if (window.device) {
+      console.log('device ready');
+      $scope.loadData();
+    } else {
+      app.onDevReady = $scope.loadData;
+    }
 });
 
 angularApp.controller('topicController', function($scope) {
     $scope.pageClass = 'page-topic';
     $scope.loadData = function(){};
-    $scope.$on("$viewContentLoaded", function() {
-      if (!window.device) {
-        app.onDevReady = $scope.loadData;
-      } else {
-        $scope.loadData();
-      }
-    })
 });
 
 // about page controller
 angularApp.controller('topicsController', function($scope) {
     $scope.pageClass = 'page-subs';
     $scope.loadData = function(){};
-    $scope.$on("$viewContentLoaded", function() {
-      if (!window.device) {
-        app.onDevReady = $scope.loadData;
-      } else {
-        $scope.loadData();
-      }
-      expandButton('topics');
-    })
 });
 
 angularApp.controller('settingsController', function($scope) {
     $scope.pageClass = 'page-settings';
     $scope.loadData = function(){};
-    $scope.$on("$viewContentLoaded", function() {
-      if (!window.device) {
-        app.onDevReady = $scope.loadData;
-      } else {
-        $scope.loadData();
-      }
-      expandButton('settings');
-    })
 });
 
 angularApp.controller('navbar', function($scope) {
     $scope.selected = "feed";
+    $scope.slides = [{name: 'feed'}, {name: 'topics'}, {name: 'settings'}]
+    $scope.openPage = function(page) {
+       expandButton(page);
+       console.log('getting scope');
+       var inner = $('.p-' + $scope.selected).scope();
+       console.log('sel:' + '.p-' + $scope.selected);
+       console.log('elem:' + angular.element($('.p-' + $scope.selected)))
+       console.log('scope:' + JSON.stringify(inner));
+       //scope.loadData();
+    }
 });
 
 angularApp.controller('feedButton', function($scope) {
