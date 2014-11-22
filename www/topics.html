@@ -1,6 +1,24 @@
-<div class="page-body p-topics" ng-controller="topicsController">
-<h1>Topics</h1>
-<div data-ng-repeat="i in [1,2,3,4,5]">
-  <h3>hello</h3>
-</div>
+<div ng-controller="topicsController">
+  <fieldset>
+    <div class="form-group">
+         <div class="form-control-wrapper">
+            <input type="email" class="form-control empty topic-input input-lg" id="inputEmail" placeholder="Ukraine">
+            <span class="material-input"></span>
+         </div>
+    </div>
+  </fieldset>
+  <div class="page-body p-topics list-group">
+    <div data-ng-repeat="topic in topics">
+      <div class="list-group-item">
+        <div ng-if="topic.id !== -1" class="row topic-row vcenter">
+          <div class="col-xs-11"><span class="list-group-item-heading">{{ topic.topic }}</span></div>
+          <div class="col-xs-1"><i class="chevron mdi-navigation-chevron-right  {{ topic.id === -1 ? '' : '' }}"></i></div>
+        </div>
+        <div ng-if="topic.id === -1" class="row topic-row vcenter">
+          <div class="col-xs-12"><span class="list-group-item-heading">{{ topic.topic }}</span></div>
+        </div>
+        <div class="list-group-separator">
+      </div>
+    </div>
+  </div>
 </div>

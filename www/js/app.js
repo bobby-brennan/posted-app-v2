@@ -11,13 +11,15 @@ console.log('init feed controller');
 angularApp.controller('feedController', function($scope) {
     console.log('making feed controller');
     $scope.pageClass = 'page-feed';
-    $scope.articles = [{title: "Nothing yet..."}];
+    $scope.articles = [{title: "Loading..."}];
     $scope.loadData = function() {
       console.log('getting articles...');
       server.getUserArticles(function(articles) {
         console.log('articles:' + articles.length);
-        if (!articles || articles.length == 0) {
-          articles = [{title: "Nothing yet..."}];
+        if (!articles) {
+          articles = [{title: "Error retrieving feed", url: "#"}];
+        } else if (articles.length == 0) {
+          articles = [{title: "Nothing yet...", url: "#"}];
         }
         $scope.articles = articles;
         $scope.$apply();
@@ -38,8 +40,28 @@ angularApp.controller('topicController', function($scope) {
 
 // about page controller
 angularApp.controller('topicsController', function($scope) {
-    $scope.pageClass = 'page-subs';
-    $scope.loadData = function(){};
+    $scope.pageClass = 'page-topics';
+    console.log('making topics controller');
+    $scope.topics = [{topic: "Loading...", id: -1}];
+    $scope.loadData = function(){
+      console.log('loading data...');
+      server.getSubscriptions(function(topics) {
+        console.log('got topics:' + topics.length);
+        if (!topics) {
+          topics = [{topic: "Error retrieving topics", id:-1}];
+        } else if (topics.length === 0) {
+          topics = [{topic: "Add some topics above to get started!", id:-1}];
+        }
+        $scope.topics = topics;
+        $scope.$apply();
+      });
+    };
+    if (window.device) {
+      console.log('device ready');
+      $scope.loadData();
+    } else {
+      app.onDevReady = $scope.loadData;
+    }
 });
 
 angularApp.controller('settingsController', function($scope) {

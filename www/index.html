@@ -46,18 +46,19 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <script>console.log('BB 5')</script>
     </head>
-    <body ng-app="angularApp" ng-controller="navbar" class="container">
+    <body ng-app="angularApp" ng-controller="navbar" class="container" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
         <div class="row fill-height">
           <div ng-include class="page col-xs-12" src="selected + '.html'"></div>
         </div>
-        <div id="navbar" class="footer navbar-fixed-bottom row text-center">
+        <div id="navbar" class="footer fade-down navbar-fixed-bottom row text-center">
             <div class="col-xs-1"></div>
             <div ng-include class="nav-button-container {{ selected === 'feed' ? 'col-xs-4' : 'col-xs-3' }}" src="'button.html'" ng-controller="feedButton"></div>
             <div ng-include class="nav-button-container {{ selected === 'topics' ? 'col-xs-4' : 'col-xs-3' }}" src="'button.html'" ng-controller="topicsButton"></div>
             <div ng-include class="nav-button-container {{ selected === 'settings' ? 'col-xs-4' : 'col-xs-3' }}" src="'button.html'" ng-controller="settingsButton"></div>
             <div class="col-xs-1"></div>
         </div>
-        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="PushNotification.js"></script>
         <script type="text/javascript" charset="utf-8" src="telephonenumber.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script>console.log('BB 6')</script>

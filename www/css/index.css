@@ -29,7 +29,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#EEEEEE;
+    background-color:#FFFFFF;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
@@ -122,4 +122,42 @@ h1 {
   height: 96px;
   border-bottom: solid 1px black;
   vertical-align: middle;
+}
+
+.timestamp {
+  text-transform: none
+}
+
+.list-group-item a {
+  text-decoration: none;
+  color: black;
+}
+
+.list-group-separator::before {
+  width: 100% !important;
+}
+
+.article-title {
+  text-transform: none;
+}
+
+/* topics */
+.topic-input {
+  margin-top: 12px;
+  font-size: 24px !important;
+  height: 42px !important;
+}
+
+.topic-row {
+  width: 100% !important;
+  text-transform: none;
+}
+
+.delete-button {
+  font-size:24px;
+}
+
+.chevron {
+  font-size: 24px;
+  float: right;
 }
