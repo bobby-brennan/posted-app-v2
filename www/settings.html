@@ -1,8 +1,26 @@
-<div ng-controller="settingsController">
+<div ng-controller="settingsController" data-ng-init="onLoad()">
   <div class="page-body p-settings list-group">
     <div class="list-group-separator"></div>
       <h3>Alert Settings</h3>
-      <div class="slider shor slider-success"></div>Vibrate
+      <form class="form-horizontal">
+        <fieldset>
+          <div class="checkbox">
+            <label>
+              <input id="opt-vibrate" class="settings-button" type="checkbox">Vibrate
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input id="opt-sound" class="settings-button" type="checkbox">Sound
+            </label>
+          </div>
+          <div class="col-sm-6">
+            <div class="slider shor"></div>
+            <div class="slider shor slider-success"></div>
+            <div class="slider shor slider-material-pink"></div>
+          </div>
+        </fieldset>
+      </form>
     <div class="list-group-separator"></div>
   </div>
 </div>

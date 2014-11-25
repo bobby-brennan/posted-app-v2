@@ -2,9 +2,9 @@
   <div class="page-body p-feed list-group">
     <div class="list-group-separator"></div>
     <div class="list-group-item">
-      <div class="row-content feed-header">
+      <div class="row-content shrunken">
         <div class="least-content">
-          <div class="chevron-badge" ng-click="delete()"><i class="topic-icon mdi-action-delete"></i></div>
+          <span class="chevron-badge mdi-action-delete" ng-click="delete()"></span>
         </div>
         <div class="list-group-item-heading feed-name">{{ topicName }}</div>
       </div>
@@ -16,7 +16,7 @@
           <a href="#" class="" ng-click="openUrl(article.url)">
             <div class="least-content">
               <div class="time-message">{{ article.timeMessage }}</div>
-              <div class="chevron-badge mdi-navigation-chevron-right"></div>
+              <span class="chevron-badge mdi-navigation-chevron-right"></span>
             </div>
             <div class="article-title article-title-bare">{{ article.title }}</div>
           </a>

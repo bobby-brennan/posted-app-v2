@@ -2,23 +2,17 @@ var angularApp = angular.module('angularApp', ['ngRoute', 'ngAnimate']);
 
 // CONTROLLERS ============================================
 // home page controller
-console.log('init feed controller');
 angularApp.controller('feedController', function($scope) {
-    console.log('making feed controller');
     $scope.pageClass = 'page-feed';
     $scope.articles = [{title: "Loading..."}];
     $scope.openUrl = app.openUrl;
 
     $scope.loadData = function() {
-      console.log('load data feed');
       if (!window.device) {
-        console.log('setting callback');
         app.onDevReady = $scope.loadData;
         return;
       } 
-      console.log('getting articles...');
       server.getUserArticles(function(articles) {
-        console.log('articles:' + articles.length);
         if (!articles) {
           articles = [{title: "Error retrieving feed", url: "#"}];
         } else if (articles.length == 0) {
@@ -29,6 +23,7 @@ angularApp.controller('feedController', function($scope) {
       });
     };
     $scope.loadData();
+    console.log('done initing feed controller');
 });
 
 angularApp.controller('topicController', function($scope) {
@@ -39,19 +34,15 @@ angularApp.controller('topicController', function($scope) {
     $scope.openUrl = app.openUrl;
 
     $scope.delete = function() {
-      console.log('delete!');
       $('.topic-icon').switchClass('mdi-action-delete', 'mdi-av-loop icon-spin');
       server.deleteTopic($scope.topicId, function() {
-        console.log('deleted!');
         $('body').scope().selected = 'topics';
         $('body').scope().$apply();
       });
     }
 
     $scope.loadData = function(){
-      console.log('getting topic articles');
       server.getTopicArticles($scope.topicId, function(articles) {
-        console.log('articles:' + articles.length);
         if (!articles) {
           articles = [{title: "Error retrieving feed", url: "#"}];
         } else if (articles.length == 0) {
@@ -70,17 +61,15 @@ angularApp.controller('topicController', function($scope) {
 // about page controller
 angularApp.controller('topicsController', function($scope) {
     $scope.pageClass = 'page-topics';
-    console.log('making topics controller');
     $scope.openTopic = function(id, name) {
-      console.log('open topic:' + name + ':' + id);
       $('body').scope().topicName = name;
       $('body').scope().topicId = id;
+      $('body').scope().lastSelected = $('body').scope().selected;
       $('body').scope().selected = 'topic';
     }
     $scope.topics = [{topic: "Loading...", id: -1}];
     $scope.registerListeners = function() {
         $("#add-topic-form").submit(function() {
-            console.log("submitting!");
             $('.submit-icon').switchClass('mdi-content-add', 'mdi-av-loop icon-spin');
             server.addTopic($('.topic-input').val(), function() {
               $('.submit-icon').switchClass('mdi-av-loop icon-spin', 'mdi-content-add');
@@ -94,9 +83,7 @@ angularApp.controller('topicsController', function($scope) {
         app.onDevReady = $scope.loadData;
         return;
       }
-      console.log('loading data...');
       server.getSubscriptions(function(topics) {
-        console.log('got topics:' + topics.length);
         if (!topics) {
           topics = [{topic: "Error retrieving topics", id:-1}];
         } else if (topics.length === 0) {
@@ -117,27 +104,25 @@ angularApp.controller('settingsController', function($scope) {
     $scope.pageClass = 'page-settings';
     $scope.loadData = function(){};
     $scope.loadData();
+    $scope.onLoad = function() {
+      app.initSettingsUi();
+    }
 });
 
 var BUTTONS = ['feed', 'topics', 'settings'];
 
 var animateButtons = function(selected, onDone) {
-  console.log('anim buttons!');
   var finished = 0;
   var animDone = function() {
-    console.log('anims:' + finished);
     if (++finished === BUTTONS.length && onDone) onDone(selected);
   }
   for (var i = 0; i < BUTTONS.length; ++i) {
-    console.log('set class:' + BUTTONS[i]);
-    console.log('sel:' + BUTTONS[i]);
     if (selected === BUTTONS[i]) {
       $('.' + BUTTONS[i] + '-button').switchClass('col-xs-3', 'col-xs-4', 300, animDone);
     } else {
       $('.' + BUTTONS[i] + '-button').switchClass('col-xs-4', 'col-xs-3', 300, animDone);
     }
   }
-  console.log('set classes');
 }
 
 angularApp.controller('navbar', function($scope) {
@@ -145,16 +130,21 @@ angularApp.controller('navbar', function($scope) {
     $scope.selected = 'topics';
     $scope.slides = [{name: 'feed'}, {name: 'topics'}, {name: 'settings'}]
     $scope.openPage = function(page) {
-       $('body').scrollTop();
+       console.log('scrolling to top...');
+       window.scrollTo(0, 0);
+       console.log('scrolled');
        animateButtons(page, function(pageloaded) {
-         console.log('animation done!');
          // Hack alert: deferring scope change until after anim kills major jank
          // deferring an extra 15ms reduces a small click at the end of animation
          setTimeout(function() {
+           console.log('after button timeout:' + pageloaded);
+           $scope.lastSelected = $scope.selected;
            $scope.selected = pageloaded;
            $scope.$apply();
+           console.log('applied new page');
          }, 15);
        });
+       console.log('done open page setup');
     }
 });
 

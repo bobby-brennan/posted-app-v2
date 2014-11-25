@@ -149,9 +149,8 @@ var app = {
         pushNotification.register(app.notifSuccess, app.notifError, {
             "senderID":"867512734067",
             "ecb":"app.onNotification",
-            "badge": "true",
-            "alert": "false",
-            "sound": "false"
+            "optVibrate": (localStorage.optVibrate ? JSON.parse(localStorage.optVibrate) : false),
+            "optSound": (localStorage.optVibrate ? JSON.parse(localStorage.optSound) : false),
         });
     },
     
@@ -184,10 +183,7 @@ var app = {
         console.log('event:' + id);
         if (id === 'deviceready') {
             console.log("DEVICE READY");
-
-            $.material.input();
-            $.material.checkbox();
-            $.material.radio();
+            app.initUi();
             if (device.platform == 'android' ||
                 device.platform == 'Android' ||
                 device.platform == 'amazon-fireos' ) {
@@ -208,7 +204,48 @@ var app = {
         //listeningElement.setAttribute('style', 'display:none;');
         //receivedElement.setAttribute('style', 'display:block;');
     },
-    
+
+    initMaterialDesign: function() {
+        console.log('initting material design');
+        $.material.input();
+        $.material.checkbox();
+        $.material.radio();
+        console.log('done material init');
+    },
+
+    initUi: function() {
+      app.initMaterialDesign();
+      var onBack = function(e) {
+        var last = $('body').scope().lastSelected;
+        if (last) {
+          $('body').scope().lastSelected = $('body').scope().selected;
+          $('body').scope().selected = last;
+          $('body').scope().$apply();
+        } else {
+          console.log("exiting");
+          e.preventDefault();
+          navigator.app.exitApp();
+        }
+      };
+      document.addEventListener("backbutton", onBack, false);
+    },
+
+    initSettingsUi: function() {
+      app.initMaterialDesign();
+      if (localStorage.optVibrate) {
+        $('#opt-vibrate').prop('checked', JSON.parse(localStorage.optVibrate));
+      }
+      if (localStorage.optSound) {
+        $('#opt-sound').prop('checked', JSON.parse(localStorage.optSound));
+      }
+      $('.settings-button').change(function() {
+        localStorage.optVibrate = $('#opt-vibrate').is(':checked');
+        localStorage.optSound = $('#opt-sound').is(':checked');
+        console.log('Set new settings:' + JSON.stringify(localStorage));
+        app.registerAndroidNotifications();
+      });
+    },
+ 
     notifSuccess: function() {
     },
     
@@ -267,7 +304,9 @@ var app = {
     },
     
     handleNotification: function(extra) {
-      ons.tabbar.setActiveTab(0);
+      console.log('handle notif');
+      $('body').scope().openPage('feed');
+      console.log('handled');
     },
     
     openUrl: function(url) {

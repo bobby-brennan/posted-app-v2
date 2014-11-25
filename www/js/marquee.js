@@ -125,5 +125,5 @@ Marquee.start = function(selector) {
 Marquee.stop = function(restartOnBlur) {
   cancelAnimation();
   $(SELECTOR).blur(function(){Marquee.start(SELECTOR)});
-  Marqee.started = false;
+  Marquee.started = false;
 }

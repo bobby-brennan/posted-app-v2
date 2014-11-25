@@ -13,16 +13,15 @@
   </form>
   <div class="page-body p-topics list-group">
     <div data-ng-repeat="topic in topics">
-      <div class="list-group-item">
-        <div ng-if="topic.id !== -1" class="row topic-row vcenter" ng-click="openTopic(topic.id, topic.topic)">
-          <div class="col-xs-11 topic-holder"><span class="list-group-item-heading">{{ topic.topic }}</span></div>
-          <div class="col-xs-1 chevron-holder"><i class="chevron mdi-navigation-chevron-right"></i></div>
+      <div class="list-group-item topic-row vcenter" ng-click="openTopic(topic.id, topic.topic)">
+        <div class="row-content shrunken">
+          <div ng-if="topic.id !== -1" class="least-content">
+             <span class="chevron-badge mdi-navigation-chevron-right"></span>
+          </div>
+          <span class="list-group-item-heading {{ topicId === -1 ? 'list-group-item-heading-bare' : '' }}">{{ topic.topic }}</span>
         </div>
-        <div ng-if="topic.id === -1" class="row topic-row vcenter">
-          <div class="col-xs-12"><span class="list-group-item-heading">{{ topic.topic }}</span></div>
-        </div>
-        <div class="list-group-separator">
       </div>
+      <div class="list-group-separator"></div>
     </div>
   </div>
 </div>

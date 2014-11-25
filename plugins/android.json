@@ -9,15 +9,15 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"PushPlugin\"><param name=\"android-package\" value=\"com.plugin.gcm.PushPlugin\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"TelephoneNumber\"><param name=\"android-package\" value=\"com.simonmacdonald.cordova.plugins.TelephoneNumber\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushPlugin\"><param name=\"android-package\" value=\"com.plugin.gcm.PushPlugin\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -26,6 +26,10 @@
             "AndroidManifest.xml": {
                 "parents": {
                     "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
+                            "count": 1
+                        },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
                             "count": 1
@@ -53,10 +57,6 @@
                         {
                             "xml": "<uses-permission android:name=\"info.bbrennan.posted.permission.C2D_MESSAGE\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
-                            "count": 1
                         }
                     ],
                     "/manifest/application": [
@@ -78,13 +78,13 @@
         }
     },
     "installed_plugins": {
-        "com.phonegap.plugins.PushPlugin": {
-            "PACKAGE_NAME": "info.bbrennan.posted"
-        },
         "com.simonmacdonald.telephonenumber": {
             "PACKAGE_NAME": "info.bbrennan.posted"
         },
         "org.apache.cordova.device": {
+            "PACKAGE_NAME": "info.bbrennan.posted"
+        },
+        "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "info.bbrennan.posted"
         }
     },
