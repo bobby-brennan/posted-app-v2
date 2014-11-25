@@ -1,1 +1,28 @@
-<h1>Topic</h1>
+<div ng-controller="topicController" data-ng-init="">
+  <div class="page-body p-feed list-group">
+    <div class="list-group-separator"></div>
+    <div class="list-group-item">
+      <div class="row-content feed-header">
+        <div class="least-content">
+          <div class="chevron-badge" ng-click="delete()"><i class="topic-icon mdi-action-delete"></i></div>
+        </div>
+        <div class="list-group-item-heading feed-name">{{ topicName }}</div>
+      </div>
+    </div>
+    <div class="list-group-separator"></div>
+    <div data-ng-repeat="article in articles">
+      <div class="list-group-item">
+        <div class="row-content">
+          <a href="#" class="" ng-click="openUrl(article.url)">
+            <div class="least-content">
+              <div class="time-message">{{ article.timeMessage }}</div>
+              <div class="chevron-badge mdi-navigation-chevron-right"></div>
+            </div>
+            <div class="article-title article-title-bare">{{ article.title }}</div>
+          </a>
+        </div>
+      </div>
+      <div class="list-group-separator"></div>
+    </div>
+  </div>
+</div>

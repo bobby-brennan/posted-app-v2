@@ -53,7 +53,7 @@
             .data("mdproc", true)
             .each( function() {
                 var $this = $(this);
-                $this.wrap("<div class=form-control-wrapper></div>");
+                $this.wrap("<div></div>");
                 $this.after("<span class=material-input></span>");
                 if ($this.hasClass("floating-label")) {
                     var placeholder = $this.attr("placeholder");

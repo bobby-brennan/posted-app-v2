@@ -1,11 +1,14 @@
-<div ng-controller="feedController">
+<div ng-controller="feedController" data-ng-init="">
   <div class="page-body p-feed list-group">
     <div class="list-group-separator"></div>
     <div data-ng-repeat="article in articles">
       <div class="list-group-item">
         <div class="row-content">
-          <a href="{{ article.url }}" class="">
-            <div class="least-content">{{ article.timeMessage }}</div>
+          <a href="#" class="" ng-click="openUrl(article.url)">
+            <div class="least-content">
+              <div class="time-message">{{ article.timeMessage }}</div>
+              <div class="chevron-badge mdi-navigation-chevron-right"></div>
+            </div>
             <div class="list-group-item-heading">{{ article.category }}</div>
             <div class="list-group-item-text article-title">{{ article.title }}</div>
           </a>

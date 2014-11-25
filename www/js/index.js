@@ -81,7 +81,7 @@ var server = {
       console.log('get arts:' + JSON.stringify(ajaxParams));
       ajaxParams.error = function(err) {
         console.log('error getting articles:' + JSON.stringify(err));
-        onArticles([]);
+        onArticles();
       };
       ajaxParams.success = function(xml) {
         var items = $(xml).find('item');
@@ -184,8 +184,10 @@ var app = {
         console.log('event:' + id);
         if (id === 'deviceready') {
             console.log("DEVICE READY");
-            
-            $.material.init();
+
+            $.material.input();
+            $.material.checkbox();
+            $.material.radio();
             if (device.platform == 'android' ||
                 device.platform == 'Android' ||
                 device.platform == 'amazon-fireos' ) {

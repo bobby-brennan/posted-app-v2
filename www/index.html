@@ -28,6 +28,7 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <title>Posted</title>
         <script type="text/javascript" src="bower/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower/jquery-ui/jquery-ui.min.js"></script>
         <script>console.log('BB 1')</script>
         <script src="http://jsconsole.com/remote.js?5FFA97AA-F0EB-43F5-9DA6-CB0F22ED6810"></script>
         <script>console.log('BB 2')</script>
@@ -43,23 +44,26 @@
         <link rel="stylesheet" href="bower/bootstrap-material-design/dist/css/material.min.css"></link>
         <link rel="stylesheet" href="bower/bootstrap-material-design/dist/css/ripples.min.css"></link>
 
+        <link rel="stylesheet" href="bower/fontawesome/css/font-awesome.min.css"></link>
+
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <script>console.log('BB 5')</script>
     </head>
     <body ng-app="angularApp" ng-controller="navbar" class="container" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
-        <div class="row fill-height">
-          <div ng-include class="page col-xs-12" src="selected + '.html'"></div>
+        <div class="fill-height">
+          <div ng-include class="page" src="selected + '.html'"></div>
         </div>
         <div id="navbar" class="footer fade-down navbar-fixed-bottom row text-center">
             <div class="col-xs-1"></div>
-            <div ng-include class="nav-button-container {{ selected === 'feed' ? 'col-xs-4' : 'col-xs-3' }}" src="'button.html'" ng-controller="feedButton"></div>
-            <div ng-include class="nav-button-container {{ selected === 'topics' ? 'col-xs-4' : 'col-xs-3' }}" src="'button.html'" ng-controller="topicsButton"></div>
-            <div ng-include class="nav-button-container {{ selected === 'settings' ? 'col-xs-4' : 'col-xs-3' }}" src="'button.html'" ng-controller="settingsButton"></div>
+            <div ng-include class="nav-button-container feed-button col-xs-3" src="'button.html'" ng-controller="feedButton"></div>
+            <div ng-include class="nav-button-container topics-button col-xs-4" src="'button.html'" ng-controller="topicsButton"></div>
+            <div ng-include class="nav-button-container settings-button col-xs-3" src="'button.html'" ng-controller="settingsButton"></div>
             <div class="col-xs-1"></div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="PushNotification.js"></script>
         <script type="text/javascript" charset="utf-8" src="telephonenumber.js"></script>
+        <script type="text/javascript" src="js/marquee.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script>console.log('BB 6')</script>
         <script type="text/javascript" src="js/app.js"></script>
